@@ -1,11 +1,15 @@
 const {User, Story} = require('../model/index')
 
 const resolvers = {
-    Queery: {
+    Query: {
         getAllUser: async () => {
             const user = await User.find()
             return user
-          }
+          },
+        getAllStory: async () => {
+            const story = await Story.find()
+            return story
+        }
 
     }
 }

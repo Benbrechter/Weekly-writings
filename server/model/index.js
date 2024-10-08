@@ -1,4 +1,4 @@
-import Story from "./short-stories";
-import User from "./user";
+const Story = require('./short-stories');
+const User = require('./user')
 
 module.exports = {Story, User}
