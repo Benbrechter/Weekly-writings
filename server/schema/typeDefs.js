@@ -10,8 +10,13 @@ type User {
 
 type Story {
  _id: ID!
- title: String!!
+ title: String!
  story: String!
+}
+
+type Query {
+getAllUser: [User]
+getAllStory: [Story]
 }
 `
 
