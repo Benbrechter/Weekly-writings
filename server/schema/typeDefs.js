@@ -14,9 +14,18 @@ type Story {
  story: String!
 }
 
+type Auth {
+  token: ID
+  user: User
+}
+
 type Query {
 getAllUser: [User]
 getAllStory: [Story]
+}
+
+type Mutation {
+addUser(username: String!, email: String!, password: String!): Auth
 }
 `
 
