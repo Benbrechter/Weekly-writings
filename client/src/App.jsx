@@ -22,7 +22,6 @@ function App() {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
-      <footer><Footer /></footer>
     </div>
   </Router>
   )
