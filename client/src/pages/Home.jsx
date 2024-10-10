@@ -5,7 +5,7 @@ function Home(){
         <div>
             <div>
                 <Link to = '/writings'> <h1>This Weeks Story</h1></Link>
-                <Link to = '/preWritings'><h1>Next Weeks Story</h1></Link>
+                <Link to = '/prevWriting'><h1>Next Weeks Story</h1></Link>
             </div>
             {/* this is the link to the logo */}
             <div>
