@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 function HomeBtn(){
     return(
-        <div>
+        <div className='home-btn'>
             <Link to = '/Home'><img src="" alt="This is going to route you home" /></Link>
             
         </div>
