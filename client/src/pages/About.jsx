@@ -17,6 +17,10 @@ function About() {
             <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reprehenderit itaque suscipit vero autem nemo cupiditate nam obcaecati provident dolore, non, inventore, veniam quo maiores repudiandae incidunt quisquam nobis. Quod, fugiat.</p>
                 <img src="" alt="" />
             </div>
+            <div className = 'about-box3'>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reprehenderit itaque suscipit vero autem nemo cupiditate nam obcaecati provident dolore, non, inventore, veniam quo maiores repudiandae incidunt quisquam nobis. Quod, fugiat.</p>
+                <img src="" alt="" />
+            </div>
         </div>
     )
 }
