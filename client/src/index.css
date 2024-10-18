@@ -12,17 +12,21 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+body{
+margin: 0;
+}
 
 /* home */
 .home-container{
+  background-color:#f6dea5;
 position: relative;
-height: 95vh;
-width: 95vw;
+height: 100vh;
+width: 100vw;
 }
 
 .home-img{
 position: absolute;
-left: 45%;
+left: 50%;
 top: 50%;
 }
 
@@ -30,4 +34,32 @@ top: 50%;
   position: absolute;
   left: 0;
   top: 0;
+}
+
+.home-writings {
+  position: absolute;
+  top: 15%;
+  left: 10%;
+}
+
+
+.home-trey{
+  position: absolute;
+  top: 12%;
+  left: 80%
+}
+
+.home-contact{
+  position: absolute;
+  top: 75%;
+  left: 30%;
+}
+
+.home-h1{
+  color: black;
+  text-decoration: none;
+}
+.home-h1:visited{
+  color: black;
+  text-decoration: none;
 }
