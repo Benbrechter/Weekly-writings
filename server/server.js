@@ -3,12 +3,19 @@ const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
 const path = require('path');
 const {authMiddleware} = require('./utils/auth')
-
 const { typeDefs, resolvers} = require('./schema/index');
 const connectDB = require('./config/connections');
+const multer = require('multer');
+const { GridFSBucket } = require('mongodb');
+const { Readable } = require('stream');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
+
+// Configure multer for file upload handling
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
