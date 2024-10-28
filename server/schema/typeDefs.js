@@ -1,6 +1,9 @@
 const  {gql} = require('apollo-server-express')
 
 const typeDefs = gql`
+
+scalar Upload
+
 type User {
   _id: ID!
   username: String!
@@ -8,24 +11,39 @@ type User {
   password: String!
 }
 
-type Story {
- _id: ID!
- title: String!
- story: String!
+type File {
+  _id: ID!
+  filename: String!
+  contentType: String
+  uploadDate: String!
+}
+
+type FileResponse {
+  success: Boolean!
+  message: String
+  fileId: ID
+  downloadUrl: String
 }
 
 type Auth {
-  token: ID
-  user: User
+token: ID
+user: User
 }
 
 type Query {
-getAllUser: [User]
-getAllStory: [Story]
+getAllUsers: [User]
+getAllFiles: [File]
+getFile(fileId: ID!): FileResponse
 }
 
 type Mutation {
-addUser(username: String!, email: String!, password: String!): Auth
+addUser(username: String!, email: String!, password: String!): AuthResponse!
+uploadFile(file: Upload!): FileResponse!
+}
+
+type AuthResponse {
+token: String
+user: User
 }
 `
 

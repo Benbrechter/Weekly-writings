@@ -1,54 +1,52 @@
-const {User, Story} = require('../model/index')
+const {User} = require('../model/index')
 const { finished } = require('stream/promises');
 const mongoose = require('mongoose');
 
 const resolvers = {
     Query: {
-        getAllUser: async () => {
+        getAllUsers: async () => {
             const user = await User.find()
             return user
           },
-          getAllPdfs: async (parent, args, context) => {
+          getAllFiles: async (parent, args, context) => {
             if (!context.user) {
               throw new GraphQLError('Authentication required');
             }
-      
+          
             try {
               const { getGridFSBucket } = require('./config/connections');
               const bucket = getGridFSBucket();
-              
-              // Find all PDF files
-              const files = await bucket.find({
-                'metadata.contentType': 'application/pdf'
-              }).toArray();
-              
+          
+              // Find all files with a 'application/pdf' contentType
+              const files = await bucket.find({ 'metadata.contentType': 'application/pdf' }).toArray();
+          
               return files.map(file => ({
-                _id: file._id,
+                _id: file._id.toString(),
                 filename: file.filename,
                 contentType: file.metadata.contentType,
-                uploadDate: file.uploadDate
+                uploadDate: file.uploadDate.toISOString()
               }));
             } catch (err) {
-              throw new GraphQLError('Error fetching PDF files');
+              throw new GraphQLError('Error fetching files');
             }
           },
-          getPdf: async (parent, { fileId }, context) => {
+          getFile: async (parent, { fileId }, context) => {
             if (!context.user) {
               throw new GraphQLError('Authentication required');
             }
-      
+          
             try {
               const { getGridFSBucket } = require('./config/connections');
               const bucket = getGridFSBucket();
               const _id = new mongoose.Types.ObjectId(fileId);
-              
+          
               // Check if file exists
               const file = await bucket.find({ _id }).next();
-              
+          
               if (!file) {
                 throw new GraphQLError('PDF not found');
               }
-      
+          
               // Return download URL (will be handled by separate endpoint)
               return {
                 success: true,
@@ -59,7 +57,7 @@ const resolvers = {
             } catch (err) {
               throw new GraphQLError('Error retrieving PDF');
             }
-        } 
+          },
         //gonna need a sectiion for alll stories stored in chronological order
         //a search funtion aswell
         //make a create button for articles 
@@ -74,23 +72,23 @@ const resolvers = {
     
             return {token, user};
         }, 
-        uploadPdf: async (parent, { file }, context) => {
+        uploadFile: async (parent, { file }, context) => {
             if (!context.user) {
               throw new GraphQLError('Authentication required');
             }
-      
+          
             try {
               const { createReadStream, filename, mimetype } = await file;
-              
+          
               // Validate file type
               if (mimetype !== 'application/pdf') {
                 throw new GraphQLError('Only PDF files are allowed');
               }
-      
+          
               const stream = createReadStream();
               const { getGridFSBucket } = require('./config/connections');
               const bucket = getGridFSBucket();
-      
+          
               const uploadStream = bucket.openUploadStream(filename, {
                 metadata: {
                   contentType: mimetype,
@@ -98,9 +96,9 @@ const resolvers = {
                   uploadDate: new Date()
                 }
               });
-      
+          
               await finished(stream.pipe(uploadStream));
-      
+          
               return {
                 success: true,
                 fileId: uploadStream.id.toString(),
@@ -114,7 +112,6 @@ const resolvers = {
         }
           
     }
-}
 
 
 module.exports = resolvers
